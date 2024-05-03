@@ -8,7 +8,6 @@ async function addBalance(id, amount){
 
     if(user){
         user.balance += Number(amount);
-        console.log(user.balance);
         return user.save();
     }
 
@@ -20,7 +19,6 @@ async function addBalance(id, amount){
 
 function getBalance(id){
     const user = currency.get(id);
-    console.log(user)
     return user ? user.balance : 0;
 }
 

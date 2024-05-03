@@ -23,4 +23,19 @@ function getBalance(id){
 }
 
 
-module.exports = { addBalance, getBalance, Users, CurrencyShop, currency};
+async function setRiot(id, riotId){
+    const user = currency.get(id);
+    if(user){
+        user.riotId = riotId;
+        return user.save();
+    }
+    const newUser = await Users.create({user_id: id, riotId: riotId});
+    return newUser;
+}
+
+function getRiot(id){
+    const user = currency.get(id);
+    console.log(user.riotId);
+}
+
+module.exports = { addBalance, getBalance, Users, CurrencyShop, currency, setRiot, getRiot};

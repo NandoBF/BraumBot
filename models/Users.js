@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: 0,
             allowNull: false,
         },
+        riotId:{
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
 
     }, {
         timestamps: false,
