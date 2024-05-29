@@ -23,19 +23,38 @@ function getBalance(id){
 }
 
 
-async function setRiot(id, riotId){
+async function setRiot(id, riotId, puuid){
     const user = currency.get(id);
     if(user){
         user.riotId = riotId;
+        user.puuid = puuid;
+        console.log(user);
         return user.save();
     }
-    const newUser = await Users.create({user_id: id, riotId: riotId});
+    const newUser = await Users.create({user_id: id, riotId: riotId, puuid:puuid});
     return newUser;
 }
+
+
 
 function getRiot(id){
     const user = currency.get(id);
     console.log(user.riotId);
 }
 
-module.exports = { addBalance, getBalance, Users, CurrencyShop, currency, setRiot, getRiot};
+function getLastmatch(id){
+    const user = currency.get(id);
+    return user.lastmatch;
+}
+
+async function updateLastmatch(id, lastmatch){
+    const user = currency.get(id);
+    if(user){
+        user.lastmatch = lastmatch;
+        return user.save();
+    }
+    const newUser = await Users.create({user_id: id, lastmatch: lastmatch});
+    return newUser;
+}
+
+module.exports = { addBalance, getBalance, Users, CurrencyShop, currency, setRiot, getRiot, getLastmatch, updateLastmatch};

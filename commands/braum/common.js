@@ -42,9 +42,16 @@ async function getAccount(riotId){
 }
 
 
+
 //////////////
 // SUMMONER //
 //////////////
+
+async function getSummonerPUUID(puuid){
+    return (await lolapi.Summoner.getByPUUID(puuid, Constants.Regions.EU_WEST)).response
+
+}
+
 async function getSummoner(riotId){
     const user = await getAccount(riotId);
 
@@ -63,6 +70,42 @@ async function spectatorSummoner(riotId){
     console.log(data)
 }
 
+
+async function getMatchList(puuid){
+    // const account = await getAccount(riotId);
+    // const puuid = account.puuid;
+    const matchlist = (await lolapi.MatchV5.list(puuid, Constants.RegionGroups.EUROPE)).response;
+
+    return matchlist;
+}
+
+async function getMatch(matchId){
+    const match = (await lolapi.MatchV5.get(matchId, Constants.RegionGroups.EUROPE)).response;
+
+    return match;
+}
+
+async function getParticipant(puuid, match){
+    const participants_id = match.metadata.participants;
+    let index = -1;
+    for(let i = 0; i < participants_id.length; i++){
+        if(puuid == participants_id[i]){
+            index = i;
+            break;
+        }
+    }
+    return (match.info.participants[index]);
+}
+
+
 //spectatorSummoner("iDannuwu#EUW");
 
-module.exports = { handle_error ,getAccount, getSummoner, spectatorSummoner };
+module.exports = { handle_error ,
+    getAccount, 
+    getSummoner, 
+    spectatorSummoner,
+    getMatchList,
+    getMatch,
+    getParticipant,
+    getSummonerPUUID
+};

@@ -14,6 +14,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             defaultValue: '',
         },
+        puuid: {
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
+        lastmatch:{
+            type: DataTypes.STRING,
+            defaultValue: '',
+        },
 
     }, {
         timestamps: false,

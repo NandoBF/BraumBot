@@ -1,0 +1,41 @@
+{
+    "DEFAULTS":{
+        "CSMin": 6,
+        "VisionScore": 1.5
+    },
+    "TOP": {
+        "buildingDmgMultiplier": 1.5,
+        "championDmgMultiplier": 1,
+        "CSMultiplier": 1.2,
+        "KDAMultiplier": 1.2,
+        "ObjectiveMultiplier": 0.5
+    },
+    "JUNGLE": {
+        "buildingDmgMultiplier": 0.9,
+        "championDmgMultiplier": 1.1,
+        "CSMultiplier": 1,
+        "KDAMultiplier": 1.2,
+        "ObjectiveMultiplier": 2
+    },
+    "MIDDLE": {
+        "buildingDmgMultiplier": 1,
+        "championDmgMultiplier": 1,
+        "CSMultiplier": 1,
+        "KDAMultiplier": 1,
+        "ObjectiveMultiplier": 1.2
+    },
+    "BOTTOM": {
+        "buildingDmgMultiplier": 1.3,
+        "championDmgMultiplier": 1.6,
+        "CSMultiplier": 0.9,
+        "KDAMultiplier": 1.5,
+        "ObjectiveMultiplier": 1
+    },
+    "SUPPORT": {
+        "buildingDmgMultiplier": 1,
+        "championDmgMultiplier": 1,
+        "CSMultiplier": 0.1,
+        "KDAMultiplier": 1.5,
+        "ObjectiveMultiplier": 2
+    }
+}

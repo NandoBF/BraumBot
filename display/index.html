@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> DataBase Info </title>
+</head>
+
+<body>
+    <h1>Users</h1>
+    <ul id="userList"></ul>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/users')
+                .then(response => response.json())
+                .then(users => {
+                    console.log(users);
+                    const userList = document.getElementById('userList');
+                    users.forEach(user => {
+                        const li = document.createElement('li');
+                        li.textContent = `${user.user_id} (${user.riotId}) balance: ${user.balance}`;
+                        userList.appendChild(li);
+                    });
+                }).catch(error => console.error(error));
+        }); 
+    </script>
+
+</body>
+
+</html>
