@@ -1,0 +1,30 @@
+{
+    "Food1": {
+        "name": "Poro Food",
+        "id": 1,
+        "cost": 100,
+        "effects": {
+            "hunger": 5
+        }
+    },
+    "Food2": {
+        "name": "Premium Poro Food",
+        "id": 2,
+        "cost": 500,
+        "effects": {
+            "hunger": 15
+        }
+    },
+    "Hat1": {
+        "name": "Fancy Hat",
+        "id": 3,
+        "cost": 1000,
+        "effects": {}
+    },
+    "Hat2": {
+        "name": "Fancier Hat",
+        "id": 4,
+        "cost": 3000,
+        "effects": {}
+    }
+}

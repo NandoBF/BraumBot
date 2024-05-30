@@ -70,6 +70,11 @@ app.get('/api/users', async(req,res) => {
     res.json(users);
 });
 
+app.get('/api/poros', async(req, res) => {
+    const poros = await Poros.findAll();
+    return res.json(poros);
+});
+
 app.listen(port, () => {
     console.log(`#### http://localhost:${port} ####`);
 });

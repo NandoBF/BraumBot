@@ -2,14 +2,23 @@ const { Cron } = require('croner');
 const { LolApi, Constants, RiotApi } = require('twisted');
 const { getAccount, getMatchList, getMatch, getParticipant } = require('../commands/braum/common.js');
 const { getLastmatch, addBalance} = require('../commands/_shop.js');
-const { Users } = require('../dbObjects.js');
+const { Users, Poros } = require('../dbObjects.js');
 const {roles} = require('../roles.json');
 
 const updatematches = Cron("@hourly",
     (self) => {
         getAll();
+        changeHunger(-1);
     }
 )
+
+async function changeHunger(amount){
+    const poros = await Poros.findAll();
+    poros.forEach(poro => {
+        poro.hunger += amount;
+        poro.save()
+    });
+}
 
 
 async function updateUser(user){
@@ -56,7 +65,5 @@ async function getAll(){
         updateUser(user);
     }
 }
-
-
 
 module.exports = {getAll, updateUser};

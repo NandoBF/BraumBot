@@ -1,4 +1,6 @@
 const Sequelize = require('sequelize');
+const items_json = require('./shop/items.json');
+
 
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: 'localhost',
@@ -18,12 +20,16 @@ require('./models/Poros.js')(sequelize, Sequelize.DataTypes);
 const force = process.argv.includes('--force') || process.argv.includes('-f');
 const update_shop = process.argv.includes('--shop') || process.argv.includes('-s');
 
-const shop = [
-    CurrencyShop.upsert({name: 'Poro Food', cost: 100}),
-    CurrencyShop.upsert({ name: 'Premium Poro Food', cost: 1000}),
-    CurrencyShop.upsert({ name: 'Gold bathed Poro Food', cost: 10000}),
-    CurrencyShop.upsert({name: 'YOMOM', cost: 9999}),
-];
+let shop = [];
+
+
+function addShopItems(items){
+    for(element in items){
+        var item = items[element];
+        shop.push(CurrencyShop.upsert({name: item.name, cost: item.cost}))
+    }
+
+}
 
 
 sequelize.sync({ force }).then(async () => {
@@ -32,7 +38,7 @@ sequelize.sync({ force }).then(async () => {
         await CurrencyShop.truncate();
         console.log('CurrencyShop truncated');
     }
-
+    addShopItems(items_json);
     await Promise.all(shop);
     console.log('Database synced');
 

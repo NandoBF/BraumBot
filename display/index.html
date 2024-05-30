@@ -14,15 +14,29 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            let poros;
+            fetch('/api/poros')
+                .then(response => response.json())
+                .then(poros1 => poros = poros1)
+
             fetch('/api/users')
                 .then(response => response.json())
                 .then(users => {
-                    console.log(users);
                     const userList = document.getElementById('userList');
                     users.forEach(user => {
+                        const user_poro = poros.find(poro => poro.owner == user.user_id);
                         const li = document.createElement('li');
                         li.textContent = `${user.user_id} (${user.riotId}) balance: ${user.balance}`;
                         userList.appendChild(li);
+                        if (user_poro) {
+                            const li2 = document.createElement('li');
+                            li2.textContent = `Poro Name: ${user_poro.name}, hunger: ${user_poro.hunger}`;
+                            userList.appendChild(li2);
+                        } else {
+                            const li2 = document.createElement('li');
+                            li2.textContent = `No Poro`;
+                            userList.appendChild(li2);
+                        }
                     });
                 }).catch(error => console.error(error));
         }); 
