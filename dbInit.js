@@ -24,26 +24,54 @@ let shop = [];
 
 
 function addShopItems(items){
-    for(element in items){
-        var item = items[element];
+    console.log("--NEW SHOP ITEMS--")
+    for(item of items){
+        console.log(item)
         shop.push(CurrencyShop.upsert({name: item.name, cost: item.cost}))
     }
-
+    console.log("------------------")
 }
 
 
-sequelize.sync({ force }).then(async () => {
-    
-    if(update_shop){ 
-        await CurrencyShop.truncate();
-        console.log('CurrencyShop truncated');
+function pushItems(items, targets,itemNumber){
+    const tarArr = Object.keys(targets);
+    if(itemNumber > tarArr.length) return;
+    for(let i = 0; i < itemNumber; i++){
+        const index = Math.floor(Math.random() * tarArr.length)
+        const item = tarArr[index]; 
+        items.push(targets[item]);
+        tarArr.splice(index, 1);
     }
-    addShopItems(items_json);
+}
+
+async function updateShop(){
+    await CurrencyShop.truncate();
+    console.log('CurrencyShop truncated');
+
+}
+
+module.exports = (update_shop) => {
+    if(!update_shop) return;
+    updateShop();
+
+}
+
+sequelize.sync({ force }).then(async () => {
+    let items = []; 
+    if(update_shop) updateShop(); 
+    const hatJson = require('./shop/hats.json');
+    const faceJson = require('./shop/face.json');
+    const bodyJson = require('./shop/body.json');
+    pushItems(items, hatJson, 6);
+    pushItems(items, faceJson, 3);
+    pushItems(items, bodyJson, 2);
+    addShopItems(items);
     await Promise.all(shop);
     console.log('Database synced');
 
     sequelize.close();
 }).catch(console.error);
+
 
 
 

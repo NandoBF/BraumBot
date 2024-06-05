@@ -1,4 +1,4 @@
-const { api_key } = require('./config.json');
+const { api_key } = require('../../config.json');
 const { LolApi, RiotApi, Constants } = require('twisted');
 
 const lolapi = new LolApi({

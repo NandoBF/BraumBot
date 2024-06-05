@@ -9,7 +9,7 @@ module.exports = {
     async execute(interaction){
         try{
             const target = interaction.options.getUser('user') ?? interaction.user;
-            const user = await Users.findOne({ where: {user_id: target.id} });
+            const user = await Users.findOne({ where: {user_id: interaction.user.id} });
             const items = await user.getItems();
 
             if(!items.length){

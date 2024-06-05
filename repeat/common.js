@@ -8,9 +8,13 @@ const {roles} = require('../roles.json');
 const updatematches = Cron("@hourly",
     (self) => {
         getAll();
-        changeHunger(-1);
+        changeHunger(-5);
     }
 )
+
+function forceUpdate(){
+    updatematches.trigger();
+}
 
 async function changeHunger(amount){
     const poros = await Poros.findAll();
@@ -23,6 +27,7 @@ async function changeHunger(amount){
 
 async function updateUser(user){
     const matchList = await getMatchList(user.puuid);
+    if(user.lastmatch == '') user.lastmatch = matchList[1];
     for (matchId of matchList){
         if(matchId == user.lastmatch) break;
         const lastmatch = matchId;
@@ -66,4 +71,17 @@ async function getAll(){
     }
 }
 
-module.exports = {getAll, updateUser};
+
+
+// SHOP UPDATE FUNCTIONS 
+const changeShop = Cron("@daily",
+    (self) => {
+        require("../dbInit.js")(1);
+    }
+)
+
+
+
+
+
+module.exports = {getAll, updateUser, forceUpdate};

@@ -1,0 +1,32 @@
+{
+    "2000": {
+        "name": "Moustache",
+        "item_id": 2000,
+        "cost": 100000,
+        "effects": {}
+    },
+    "2001": {
+        "name": "Sunglasses",
+        "item_id": 2001,
+        "cost": 1000,
+        "effects": {}
+    },
+    "2002": {
+        "name": "Heart Glasses",
+        "item_id": 2002,
+        "cost": 5000,
+        "effects": {}
+    },
+    "2003": {
+        "name": "Cloud Moustache",
+        "item_id": 2003,
+        "cost": 10000,
+        "effects": {}
+    },
+    "2004": {
+        "name": "Mask",
+        "item_id": 2004,
+        "cost": 2500,
+        "effects": {}
+    }
+}

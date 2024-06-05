@@ -22,6 +22,7 @@
             fetch('/api/users')
                 .then(response => response.json())
                 .then(users => {
+                    console.log(poros);
                     const userList = document.getElementById('userList');
                     users.forEach(user => {
                         const user_poro = poros.find(poro => poro.owner == user.user_id);

@@ -3,6 +3,9 @@ const { Collection } = require('discord.js');
 
 const currency = new Collection();
 
+
+
+
 async function changeName(id, new_name){
     const poro = await Poros.findOne({ where:{user_id: id}, });
 
@@ -20,7 +23,6 @@ async function add_hunger(id, amount){
         poro.hunger += Number(amount);
         return poro.save();
     }
-
 }
 
 module.exports = { changeName, add_hunger, Users, Poros, CurrencyShop };

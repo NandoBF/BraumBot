@@ -1,0 +1,45 @@
+{
+    "1000": {
+        "name": "Fancy Hat",
+        "item_id": 1000,
+        "cost": 100,
+        "effects": {}
+    },
+    "1001": {
+        "name": "Fancier Hat",
+        "item_id": 1001,
+        "cost": 500,
+        "effects":{}
+    },
+    "1002": {
+        "name": "Premium Hat",
+        "item_id": 1002,
+        "cost": 5000,
+        "effects": {}
+    },
+    "1003": {
+        "name": "Reindeer Hat",
+        "item_id": 1003,
+        "cost": 10000,
+        "effects": {}
+    },
+    "1004": {
+        "name": "Bonnet",
+        "item_id": 1004,
+        "cost": 7500,
+        "effects": {}
+    },
+    "1005": {
+        "name": "Party Hat",
+        "item_id": 1005,
+        "cost": 2500,
+        "effects": {}
+    },
+    "1006": {
+        "name": "Crown",
+        "item_id": 1006,
+        "cost": 100000,
+        "effects": {}
+    }
+
+}

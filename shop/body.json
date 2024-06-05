@@ -1,0 +1,32 @@
+{
+    "3000": {
+        "name": "Angel Wings",
+        "item_id": 3000,
+        "cost": 10000,
+        "effects": {}
+    },
+    "3001": {
+        "name": "Demon Wings",
+        "item_id": 3001,
+        "cost": 10001,
+        "effects":{}
+    },
+    "3002": {
+        "name": "Halo",
+        "item_id": 3002,
+        "cost": 100000,
+        "effects": {}
+    },
+    "3003": {
+        "name": "Spheres",
+        "item_id": 3003,
+        "cost": 5000,
+        "effects": {}
+    },
+    "3004": {
+        "name": "Mahoraga",
+        "item_id": 3004,
+        "cost": 75000,
+        "effects": {}
+    }
+}
