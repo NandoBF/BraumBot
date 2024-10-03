@@ -17,8 +17,8 @@ module.exports = {
                 name: channelName,
                 type: ChannelType.GuildText,
             });
-
-            await interaction.reply(`String put ${channelName}`);
+            
+            await interaction.reply(`Created Channel ${channelName}`);
         } catch (error) {
             console.error(error);
             await interaction.reply(`There was an error with creating the channel ${channelName}`)
