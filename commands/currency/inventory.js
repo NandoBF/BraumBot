@@ -8,7 +8,7 @@ module.exports = {
     
     async execute(interaction){
         try{
-            const target = interaction.options.getUser('user') ?? interaction.user;
+            const target = interaction.user;
             const user = await Users.findOne({ where: {user_id: interaction.user.id} });
             const items = await user.getItems();
 
@@ -18,6 +18,9 @@ module.exports = {
             }
             await interaction.reply(`${target.tag} currently has ${items.map(i => `${i.amount} ${i.item.name}`).join(', ')}`);
         } catch(error){
+            interaction.deferReply();
+            interaction.deleteReply();
+            console.log(items)
             console.error(error);
         }
     }

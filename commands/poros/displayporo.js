@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, ComponentType } = require('discord.js');
 const { Users, CurrencyShop, Poros } = require('../../poros/common.js');
+const { Op } = require('sequelize');
 
 
 module.exports = {
@@ -15,6 +16,11 @@ module.exports = {
             const poro = await Poros.findOne({
                 where:{owner: interaction.user.id}
             });
+            
+            if(!poro){
+                interaction.deferReply();
+                interaction.deleteReply();
+            }
 
             const next = new ButtonBuilder()
                 .setCustomId('next')
@@ -29,14 +35,16 @@ module.exports = {
             const row = new ActionRowBuilder()
                 .addComponents(prev, next);
 
-
+            const body_item = await CurrencyShop.findOne({where: {item_id: {[Op.like]: poro.body}}});
+            const head_item = await CurrencyShop.findOne({where: {item_id: {[Op.like]: poro.head}}});
+            const face_item = await CurrencyShop.findOne({where: {item_id: {[Op.like]: poro.face}}});
 
             const accessEmbed = new EmbedBuilder()
                 .setTitle('Accessories')
                 .addFields(
-                    {name: 'Body', value: poro.body.toString()},
-                    {name: 'Head', value: poro.head.toString()},
-                    {name: 'Face', value: poro.face.toString()},
+                    {name: 'Body', value: body_item.name},
+                    {name: 'Head', value: head_item.name},
+                    {name: 'Face', value: face_item.name},
                 );
 
             const profileEmbed = new EmbedBuilder()

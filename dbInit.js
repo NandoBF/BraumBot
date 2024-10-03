@@ -27,20 +27,28 @@ function addShopItems(items){
     console.log("--NEW SHOP ITEMS--")
     for(item of items){
         console.log(item)
-        shop.push(CurrencyShop.upsert({name: item.name, cost: item.cost}))
+        shop.push(CurrencyShop.upsert({name: item.name, item_id: item.item_id,cost: item.cost}))
     }
     console.log("------------------")
 }
 
+//
+// function pushItems(items, targets,itemNumber){
+//     const tarArr = Object.keys(targets);
+//     if(itemNumber > tarArr.length) return;
+//     for(let i = 0; i < itemNumber; i++){
+//         const index = Math.floor(Math.random() * tarArr.length)
+//         const item = tarArr[index];
+//         items.push(targets[item]);
+//         tarArr.splice(index, 1);
+//     }
+// }
+//
 
-function pushItems(items, targets,itemNumber){
-    const tarArr = Object.keys(targets);
-    if(itemNumber > tarArr.length) return;
-    for(let i = 0; i < itemNumber; i++){
-        const index = Math.floor(Math.random() * tarArr.length)
-        const item = tarArr[index]; 
+
+function pushAllItems(items, targets){
+    for(item in targets){
         items.push(targets[item]);
-        tarArr.splice(index, 1);
     }
 }
 
@@ -62,9 +70,11 @@ sequelize.sync({ force }).then(async () => {
     const hatJson = require('./shop/hats.json');
     const faceJson = require('./shop/face.json');
     const bodyJson = require('./shop/body.json');
-    pushItems(items, hatJson, 6);
-    pushItems(items, faceJson, 3);
-    pushItems(items, bodyJson, 2);
+    const mixJson = require('./shop/mix.json');
+    pushAllItems(items, hatJson);
+    pushAllItems(items, faceJson);
+    pushAllItems(items, bodyJson);
+    pushAllItems(items, mixJson);
     addShopItems(items);
     await Promise.all(shop);
     console.log('Database synced');

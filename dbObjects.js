@@ -16,6 +16,7 @@ const Poros = require('./models/Poros.js')(sequelize, Sequelize.DataTypes);
 const CurrencyShop = require('./models/CurrencyShop.js')(sequelize, Sequelize.DataTypes);
 const UserItems = require('./models/UserItems.js')(sequelize, Sequelize.DataTypes);
 
+
 UserItems.belongsTo(CurrencyShop, { foreignKey: 'item_id', as: 'item'});
 
 Reflect.defineProperty(Users.prototype, 'givePoro', {
@@ -59,6 +60,14 @@ Reflect.defineProperty(Users.prototype, 'getItems', {
         return UserItems.findAll({
             where: { user_id: this.user_id },
             include: ['item'],
+        });
+    },
+});
+
+Reflect.defineProperty(Users.prototype, 'getPoro', {
+    value: function getPoro() {
+        return Poros.findOne({
+            where: {owner: this.user_id},
         });
     },
 });

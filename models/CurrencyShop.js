@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true,
         },
+        item_id: {
+            type: DataTypes.INTEGER,
+            unique: true,
+        },
         cost: {
             type: DataTypes.INTEGER,
             allowNull:false,

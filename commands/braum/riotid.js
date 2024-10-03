@@ -17,7 +17,7 @@ module.exports = {
         try{
             const account = await getAccount(riotId);
             await setRiot(target.id,riotId, account.puuid);
-            await getRiot(target.id);
+            // await getRiot(target.id);
             await interaction.reply(`Set your riot Id to: ${riotId}`);
         } catch(error){
             console.error(error)

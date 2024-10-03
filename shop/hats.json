@@ -1,4 +1,10 @@
 {
+    "0":{
+      "name": "Default",
+      "item_id": 0,
+      "cost": 0,
+      "effects": {}
+    },
     "1000": {
         "name": "Fancy Hat",
         "item_id": 1000,
@@ -40,6 +46,6 @@
         "item_id": 1006,
         "cost": 100000,
         "effects": {}
-    }
+   }
 
 }

@@ -14,10 +14,15 @@ module.exports = {
         try{
             const itemName = interaction.options.getString('item');
             const item = await CurrencyShop.findOne({ where: {name: {[Op.like]: itemName } } });
+            console.log(item);
 
-            if(!item) await interaction.reply('That item doesnt exist.'); 
+            if(!item){
+                await interaction.reply('That item doesnt exist.');
+                return;
+            }
             if(item.cost > getBalance(interaction.user.id)) {
                 await interaction.reply(`You currently have ${getBalance(interaction.user.id)}, but the ${item.name} costs ${item.cost}!`);
+                return;
             }
             const user = await Users.findOne({where: { user_id: interaction.user.id}});
             addBalance(interaction.user.id, -item.cost);

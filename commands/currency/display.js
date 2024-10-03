@@ -50,15 +50,14 @@ module.exports = {
 
             collector.on('collect', async (interaction) => {
                 if(interaction.customId === 'next'){
-                    if(currentPage + 1 > embeds.length) return;
-                    currentPage += 1;
+                    // if(currentPage + 1 > embeds.length) return;
+                    currentPage = (currentPage + 1) % embeds.length;
                     await reply.edit({embeds: [embeds[currentPage]]});
                     await interaction.reply('.');
                 }
                 
                 if(interaction.customId === 'prev'){
-                    if(currentPage - 1 < 0) return;
-                    currentPage -= 1;
+                    currentPage = (currentPage - 1) % embeds.length;
                     await reply.edit({embeds: [embeds[currentPage]]});
                     await interaction.reply('.');
                 }

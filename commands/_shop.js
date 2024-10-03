@@ -31,7 +31,8 @@ async function setRiot(id, riotId, puuid){
         console.log(user);
         return user.save();
     }
-    const newUser = await Users.create({user_id: id, riotId: riotId, puuid:puuid});
+    const newUser = await Users.create({user_id: id, balance: 0 ,riotId: riotId, puuid:puuid});
+    currency.set(id, newUser);
     return newUser;
 }
 
@@ -57,4 +58,11 @@ async function updateLastmatch(id, lastmatch){
     return newUser;
 }
 
-module.exports = { addBalance, getBalance, Users, CurrencyShop, currency, setRiot, getRiot, getLastmatch, updateLastmatch};
+function itemType(item_id){
+    if(item_id >= 3000) return 'body';
+    if(item_id >= 2000) return 'face';
+    if(item_id >= 1000) return 'hat';
+}
+
+
+module.exports = { addBalance, getBalance, Users, CurrencyShop, currency, setRiot, getRiot, getLastmatch, updateLastmatch, itemType};
