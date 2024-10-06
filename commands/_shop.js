@@ -19,7 +19,25 @@ async function addBalance(id, amount){
 
 function getBalance(id){
     const user = currency.get(id);
-    return user ? user.balance : 0;
+    return user ? user.balance : 'no user';
+}
+
+async function delUser(id){
+    const user = currency.get(id);
+    if(user){
+        try{
+            currency.delete(id)
+            user.destroy();
+            console.log('Destroyed user');
+            return;
+        }catch(error){
+            console.log(error);
+            return;
+        }
+    } else {
+        console.log('User not found');
+        return;
+    }
 }
 
 
@@ -32,6 +50,7 @@ async function setRiot(id, riotId, puuid){
         return user.save();
     }
     const newUser = await Users.create({user_id: id, balance: 0 ,riotId: riotId, puuid:puuid});
+    newUser.save();
     currency.set(id, newUser);
     return newUser;
 }
@@ -65,4 +84,4 @@ function itemType(item_id){
 }
 
 
-module.exports = { addBalance, getBalance, Users, CurrencyShop, currency, setRiot, getRiot, getLastmatch, updateLastmatch, itemType};
+module.exports = { addBalance, getBalance, Users, CurrencyShop, currency, setRiot, getRiot, getLastmatch, updateLastmatch, itemType, delUser};
