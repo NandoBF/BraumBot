@@ -67,18 +67,16 @@ module.exports = {
             collector.on('collect', async (interaction) => {
                 if(interaction.customId === 'next'){
                     if(currentPage == 1){
-                        await reply.edit({embeds: [profileEmbed]});
+                        await interaction.update({embeds: [profileEmbed]});
                         currentPage = 2;
-                        await interaction.reply('Profile Page');
                     } else await interaction.reply('No more pages that way');
 
                 }
                 
                 if(interaction.customId === 'prev'){
                     if(currentPage == 2){
-                        await reply.edit({embeds: [accessEmbed]});
+                        await interaction.update({embeds: [accessEmbed]});
                         currentPage = 1;
-                        await interaction.reply('Accessories Page');
                     } else await interaction.reply('No more pages that way');
 
                 }

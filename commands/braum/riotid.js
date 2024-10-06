@@ -9,7 +9,11 @@ module.exports = {
         .addStringOption(option =>
             option.setName('riotid')
                 .setDescription('your riotId. Format: "gameName#tagline"')
-                .setRequired(true)),
+                .setRequired(true))
+        .addUserOption(option =>
+            option.setName('user')
+                .setDescription('user to register')
+                .setRequired(false)),
 
     async execute(interaction){
         const riotId = interaction.options.getString('riotid', true);

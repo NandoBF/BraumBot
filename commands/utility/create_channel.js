@@ -17,6 +17,8 @@ module.exports = {
                 name: channelName,
                 type: ChannelType.GuildText,
             });
+
+            //var role = interaction.guild.roles.cache.find(role => console.log(role.name));
             
             await interaction.reply(`Created Channel ${channelName}`);
         } catch (error) {
