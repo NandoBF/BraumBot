@@ -38,7 +38,7 @@ module.exports = {
             const row = new ActionRowBuilder()
                 .addComponents(prev, next);
 
-            const reply = await interaction.reply({embeds: [embeds[0]], components: [row]});
+            const reply = await interaction.reply({embeds: [embeds[0]], components: [row], ephemeral: true});
 
 
             const collector = reply.createMessageComponentCollector({
@@ -52,14 +52,12 @@ module.exports = {
                 if(interaction.customId === 'next'){
                     // if(currentPage + 1 > embeds.length) return;
                     currentPage = (currentPage + 1) % embeds.length;
-                    await reply.edit({embeds: [embeds[currentPage]]});
-                    await interaction.reply('.');
+                    await interaction.update({embeds: [embeds[currentPage]]});
                 }
                 
                 if(interaction.customId === 'prev'){
                     currentPage = (currentPage - 1) % embeds.length;
-                    await reply.edit({embeds: [embeds[currentPage]]});
-                    await interaction.reply('.');
+                    await interaction.update({embeds: [embeds[currentPage]]});
                 }
 
             })

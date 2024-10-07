@@ -6,10 +6,14 @@ const { Op } = require('sequelize');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('poro')
-        .setDescription('displays your poro'),
-    
+        .setDescription('displays your poro')
+        .addBooleanOption(option =>
+            option.setName('ephemeral')
+                .setDescription('Make command only visible to you')
+                .setRequired(false)),
     async execute(interaction){
         try{
+            const is_ephemeral = interaction.options.getBoolean('ephemeral') ?? false;
             let currentPage = 1;
             const filter = (click) => click.user.id === interaction.user.id;
 
@@ -56,7 +60,7 @@ module.exports = {
 
             const message = 'Test message';
 
-            const reply = await interaction.reply({embeds: [accessEmbed],components: [row]});
+            const reply = await interaction.reply({embeds: [accessEmbed],components: [row], ephemeral: is_ephemeral});
 
             const collector = reply.createMessageComponentCollector({
                 componentType: ComponentType.Button,

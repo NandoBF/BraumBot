@@ -3,6 +3,9 @@ const { token, client_id, guild_id } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
+
+const admin = process.argv.includes('--admin');
+
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier
 const foldersPath = path.join(__dirname, 'commands');
@@ -37,11 +40,20 @@ const rest = new REST().setToken(token);
 	try {
 		console.log(`Started refreshing ${commands.length} application (/) commands.`);
 
+		var data;
+		if(admin){
+			data = await rest.put(
+				Routes.applicationGuildCommands(client_id, guild_id), //private server
+				{ body: commands },
+			);
+		} else{
+			data = await rest.put(
+				Routes.applicationCommands(client_id), //squad server
+				{ body: commands },
+			);
+
+		}
 		// The put method is used to fully refresh all commands in the guild with the current set
-		const data = await rest.put(
-			Routes.applicationCommands(client_id), //squad server
-			{ body: commands },
-		);
 
 		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
 	} catch (error) {
