@@ -19,6 +19,11 @@ const commandFolders = fs.readdirSync(foldersPath);
 for (const folder of commandFolders){
     if(folder.startsWith("_")) continue;
 	const commandsPath = path.join(foldersPath, folder);
+	if(folder == 'help.js'){
+		const command = require(commandsPath);
+		client.commands.set(command.data.name, command);
+		continue;
+	}
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 	for (const file of commandFiles){
         if(file == 'common.js'){
