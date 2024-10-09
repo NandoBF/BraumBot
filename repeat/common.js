@@ -3,11 +3,13 @@ const { LolApi, Constants, RiotApi } = require('twisted');
 const { getAccount, getMatchList, getMatch, getParticipant } = require('../commands/braum/common.js');
 const { getLastmatch, addBalance} = require('../commands/_shop.js');
 const { Users, Poros } = require('../dbObjects.js');
+const {backupDatabase} = require('../backups/backup_creation.js');
 
 const updatematches = Cron("@hourly",
     (self) => {
         getAll();
         changeHunger(-5);
+        backupDatabase('./database.sqlite');
     }
 )
 
@@ -24,7 +26,7 @@ async function changeHunger(amount){
 }
 
 
-async function updateUser(user){
+async function updateUser(user, poro){
     if(user.puuid === '') return;
     // console.log(user.user_id);
     const matchList = await getMatchList(user.puuid);
@@ -38,6 +40,7 @@ async function updateUser(user){
         const match = await getMatch(matchId);
         const participant = await getParticipant(user.puuid, match);
         const dmgCalc = calcPoints(participant);
+        if(poro) dmgCalc *= poro.point_bonus;
         // user.balance += Number(dmgCalc);
         // user.save();
         addBalance(user.user_id, dmgCalc);
@@ -93,16 +96,14 @@ function calcDamage(participant, role){
     return dmgCalc;
 }
 
-
 async function getAll(){
     const users = await Users.findAll();
     for(user of users){
+        const poro = Poros.findOne({where: {owner: user.user_id}});
         console.log('Updating User')
-        updateUser(user);
+        updateUser(user,poro);
     }
 }
-
-
 
 // SHOP UPDATE FUNCTIONS 
 const changeShop = Cron("@daily",
@@ -110,9 +111,5 @@ const changeShop = Cron("@daily",
         require("../dbInit.js")(1);
     }
 )
-
-
-
-
 
 module.exports = {getAll, updateUser, forceUpdate};

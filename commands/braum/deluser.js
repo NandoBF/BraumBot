@@ -19,8 +19,6 @@ module.exports = {
 
         }
         try{
-            console.log(interaction.user.id);
-            console.log(target.id);
             await delUser(target.id);
             await interaction.reply('User deleted successfully');
         } catch(error){
