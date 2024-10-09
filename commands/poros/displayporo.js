@@ -25,7 +25,7 @@ module.exports = {
                 interaction.deferReply();
                 interaction.deleteReply();
             }
-
+            console.log(poro.health_points);
             const next = new ButtonBuilder()
                 .setCustomId('next')
                 .setLabel('next')

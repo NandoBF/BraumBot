@@ -26,6 +26,20 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             defaultValue: 100,
         },
+        health_points: {
+            type: DataTypes.INTEGER,
+            defaultValue:100,
+            allowNull: false,
+        },
+        attack:{
+            type: DataTypes.INTEGER,
+            defaultValue: 10,
+        },
+        point_bonus:{
+            type: DataTypes.FLOAT,
+            defaultValue: 1.00,
+            allowNull: false,
+        },
 
     }, {
         timestamps: false,
