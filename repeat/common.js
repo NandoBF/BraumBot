@@ -39,7 +39,7 @@ async function updateUser(user, poro){
         const lastmatch = matchId;
         const match = await getMatch(matchId);
         const participant = await getParticipant(user.puuid, match);
-        const dmgCalc = calcPoints(participant);
+        let dmgCalc = calcPoints(participant);
         if(poro) dmgCalc *= poro.point_bonus;
         // user.balance += Number(dmgCalc);
         // user.save();

@@ -4,7 +4,7 @@ const { delUser } = require('../_shop.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('deluser')
-        .setDescription('changes your saved riotId')
+        .setDescription('Deletes a user, can only delete yourself.')
         .addUserOption(option =>
             option.setName('user')
                 .setDescription('user to delete')
@@ -16,7 +16,6 @@ module.exports = {
             target = interaction.options.getUser('user');
         } else {
             target = interaction.user;
-
         }
         try{
             await delUser(target.id);

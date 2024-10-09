@@ -14,7 +14,7 @@ module.exports = {
         try{
             const itemName = interaction.options.getString('item');
             const item = await CurrencyShop.findOne({ where: {name: {[Op.like]: itemName } } });
-            console.log(item);
+            //console.log(item);
 
             if(!item){
                 await interaction.reply('That item doesnt exist.');

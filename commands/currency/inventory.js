@@ -10,8 +10,13 @@ module.exports = {
         try{
             const target = interaction.user;
             const user = await Users.findOne({ where: {user_id: interaction.user.id} });
+            if(!user) return;
             const items = await user.getItems();
-
+            console.log(items);
+            if(!items) {
+                await interaction.reply('Sorry... This command is very bugged');
+                return;
+            }
             if(!items.length){
                 await interaction.reply(`${target.tag} has nothing!`);
                 return;
@@ -20,7 +25,6 @@ module.exports = {
         } catch(error){
             interaction.deferReply();
             interaction.deleteReply();
-            console.log(items)
             console.error(error);
         }
     }
